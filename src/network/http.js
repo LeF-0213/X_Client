@@ -17,7 +17,7 @@ export default class HttpClient {
     } catch (error) {
       console.error(error);
     }
-    if ((res.status > 299) | (res.status < 200)) {
+    if (res.status > 299 || res.status < 200) {
       const message = data && data.message ? data.message : "오류!";
       throw new Error(message);
     }

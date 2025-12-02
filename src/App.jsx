@@ -4,33 +4,31 @@ import Header from "./components/Header";
 import "./App.css";
 import AllPosts from "./pages/AllPosts";
 import MyPosts from "./pages/MyPosts";
+import { useAuth } from "./context/AuthContext";
 
 function App({ postService }) {
   const history = useNavigate();
+  const { user, logOut } = useAuth();
 
   const onAllPosts = () => {
-    history.push("/");
+    history("/");
   };
 
-  // const onMyPosts = () => {
-  //   history.push(`/${user.userid}`);
-  // };
+  const onMyPosts = () => {
+    history(`/${user.userid}`);
+  };
 
   const onLogout = () => {
     if (window.confirm("로그아웃을 하시겠습니까?")) {
-      history.push("/");
+      logOut();
+      history("/");
     }
   };
 
   return (
     <>
       <div className="app">
-        <Header
-          // </div>userid={user.userid}
-          onLogout={onLogout}
-          onAllPosts={onAllPosts}
-          // </div>onMyPosts={onMyPosts}
-        ></Header>
+        <Header userid={user?.userid} onLogout={onLogout} onAllPosts={onAllPosts} onMyPosts={onMyPosts} />
         <Routes>
           (
           <>
